@@ -21,6 +21,6 @@ To setup the app for development on your local machine, please follow the instru
    git clone https://github.com/ravigithub19/ai-virtual-mouse-controller
    ```
 
-2. Run the ```AIVirtualMouse```
+2. Run the ```AIVirtualMouse.py``` python file.
    
 
