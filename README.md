@@ -18,40 +18,9 @@ To setup the app for development on your local machine, please follow the instru
 1. Clone the repository to your machine
 
    ```bash
-   git clone https://github.com/ravigithub19/covid-19-tracker.git
-   cd covid-19-tracker
+   git clone https://github.com/ravigithub19/ai-virtual-mouse-controller
    ```
 
-2. Install packages
-
-   If you use `npm`
-
-   ```bash
-   npm install
-   ```
-
-   or
-
-   If you use `yarn`
-
-   ```bash
-   yarn
-   ```
-
-3. Run the development server
-
-   If you use `npm`
-
-   ```bash
-   npm start
-   ```
-
-   or
-
-   If you use `yarn`
-
-   ```bash
-   yarn start
-   ```
+2. Run the ```AIVirtualMouse```
    
 
