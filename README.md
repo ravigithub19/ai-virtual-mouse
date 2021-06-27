@@ -8,7 +8,6 @@
 * mediapipe
 * autopy
 * numpy
-* pandas
 
 ## Installation
 
