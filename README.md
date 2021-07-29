@@ -1,6 +1,6 @@
 ## AI Virtual Mouse
 
-> Developed an AI-based system to control the mouse cursor using Python and OpenCV with the real-time camera. Fingertip location is mapped to RGB images to control the mouse cursor.
+> Developed an AI-based Virtual Mouse using Python, and OpenCV that detects hand landmarks, track gesture patterns instead of a physical mouse with the real-time camera via fingertip.
 
 ## Dependencies  -
 > Please install all the required dependencies.
