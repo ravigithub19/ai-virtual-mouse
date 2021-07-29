@@ -4,7 +4,7 @@
 
 ## Dependencies  -
 > Please install all the required dependencies.
-* openCV -(For image processing and drawing)
+* openCV - (For image processing and drawing)
 * mediapipe - (For Hand Tracking)
 * autopy - (For controlling the mouse movement and click)
 * numpy
