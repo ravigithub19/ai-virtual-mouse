@@ -13,14 +13,16 @@ smoothening = 7  #random value
 pTime = 0
 plocX, plocY = 0, 0
 clocX, clocY = 0, 0
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(
+    0
+)
 cap.set(3, wCam)
 cap.set(4, hCam)
 
 detector = htm.handDetector(maxHands=1)
 wScr, hScr = autopy.screen.size()
 
-# print(wScr, hScr)
+print(wScr, hScr)
 
 while True:
     # Step1: Find the landmarks
@@ -50,8 +52,11 @@ while True:
             clocY = plocY + (y3 - plocY) / smoothening
 
             # Step7: Move Mouse
-            autopy.mouse.move(wScr - clocX, clocY)
-            cv2.circle(img, (x1, y1), 15, (255, 0, 255), cv2.FILLED)
+            try:
+                autopy.mouse.move(wScr - clocX, clocY)
+                cv2.circle(img, (x1, y1), 15, (255, 0, 255), cv2.FILLED)
+            except ValueError:
+                pass
             plocX, plocY = clocX, clocY
 
         # Step8: Both Index and middle are up: Clicking Mode
@@ -63,7 +68,10 @@ while True:
             # Step10: Click mouse if distance short
             if length < 40:
                 cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (0, 255, 0), cv2.FILLED)
+                # Click mouse, continue moving mouse
                 autopy.mouse.click()
+                time.sleep(0.1)
+                autopy.mouse.move(wScr - clocX, clocY)
 
     # Step11: Frame rate
     cTime = time.time()
@@ -73,4 +81,6 @@ while True:
 
     # Step12: Display
     cv2.imshow("Image", img)
-    cv2.waitKey(1)
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord("q"):
+        break
