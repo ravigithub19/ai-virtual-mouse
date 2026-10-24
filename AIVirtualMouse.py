@@ -3,28 +3,36 @@ import numpy as np
 import HandTrackingModule as htm
 import time
 import autopy
+from camera_utils import get_default_camera_index, open_camera
 
 ######################
 wCam, hCam = 640, 480
-frameR = 100     #Frame Reduction
-smoothening = 7  #random value
+frameR = 100     # Frame Reduction
+smoothening = 7  # Smoothing factor
 ######################
 
 pTime = 0
 plocX, plocY = 0, 0
 clocX, clocY = 0, 0
-cap = cv2.VideoCapture(0)
-cap.set(3, wCam)
-cap.set(4, hCam)
+
+# Connect to USB webcam automatically
+cam_idx = get_default_camera_index()
+cap, cam_name, cam_idx = open_camera(cam_idx, wCam, hCam)
+print(f"[AI Virtual Mouse] Usando webcam USB: '{cam_name}' (Dispositivo {cam_idx})")
 
 detector = htm.handDetector(maxHands=1)
 wScr, hScr = autopy.screen.size()
 
-# print(wScr, hScr)
-
 while True:
     # Step1: Find the landmarks
     success, img = cap.read()
+    if not success or img is None:
+        continue
+
+    # Standardize frame size
+    if img.shape[1] != wCam or img.shape[0] != hCam:
+        img = cv2.resize(img, (wCam, hCam))
+
     img = detector.findHands(img)
     lmList, bbox = detector.findPosition(img)
 
@@ -40,7 +48,6 @@ while True:
 
         # Step4: Only Index Finger: Moving Mode
         if fingers[1] == 1 and fingers[2] == 0:
-
             # Step5: Convert the coordinates
             x3 = np.interp(x1, (frameR, wCam-frameR), (0, wScr))
             y3 = np.interp(y1, (frameR, hCam-frameR), (0, hScr))
@@ -50,13 +57,14 @@ while True:
             clocY = plocY + (y3 - plocY) / smoothening
 
             # Step7: Move Mouse
-            autopy.mouse.move(wScr - clocX, clocY)
+            target_x = max(0, min(int(wScr - clocX), int(wScr - 1)))
+            target_y = max(0, min(int(clocY), int(hScr - 1)))
+            autopy.mouse.move(target_x, target_y)
             cv2.circle(img, (x1, y1), 15, (255, 0, 255), cv2.FILLED)
             plocX, plocY = clocX, clocY
 
         # Step8: Both Index and middle are up: Clicking Mode
         if fingers[1] == 1 and fingers[2] == 1:
-
             # Step9: Find distance between fingers
             length, img, lineInfo = detector.findDistance(8, 12, img)
 
@@ -67,10 +75,14 @@ while True:
 
     # Step11: Frame rate
     cTime = time.time()
-    fps = 1/(cTime-pTime)
+    fps = 1 / (cTime - pTime) if (cTime - pTime) > 0 else 30
     pTime = cTime
-    cv2.putText(img, str(int(fps)), (28, 58), cv2.FONT_HERSHEY_PLAIN, 3, (255, 8, 8), 3)
+    cv2.putText(img, f"FPS: {int(fps)}", (28, 58), cv2.FONT_HERSHEY_PLAIN, 2, (255, 8, 8), 2)
 
     # Step12: Display
-    cv2.imshow("Image", img)
-    cv2.waitKey(1)
+    cv2.imshow("AI Virtual Mouse - Press q to exit", img)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
