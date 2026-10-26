@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SENAI - Painel Digital</title>
+  <!-- Tipografia Moderna e Diferenciada: Outfit + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/senai-logo.svg">
+  <!-- Biblioteca Offline de QR Code -->
+  <script src="assets/qrcode.min.js"></script>
+</head>
+<body>
+
+  <!-- Fundo Branco com Efeitos Vermelhos Tipo Ondas -->
+  <div class="canvas-bg-container">
+    <canvas id="waveCanvas"></canvas>
+    <div class="wave-glow-ambient"></div>
+  </div>
+
+  <!-- Linha Sutil de Progresso do Ciclo de 20s (Sem botões ou textos) -->
+  <div class="top-progress-bar">
+    <div class="progress-fill" id="timerBar"></div>
+  </div>
+
+  <!-- Efeito Visual de Rajada de Vento para a Esquerda -->
+  <div class="wind-overlay" id="windOverlay">
+    <div class="wind-streak s1"></div>
+    <div class="wind-streak s2"></div>
+    <div class="wind-streak s3"></div>
+    <div class="wind-streak s4"></div>
+    <div class="wind-streak s5"></div>
+    <div class="wind-streak s6"></div>
+    <div class="wind-streak s7"></div>
+    <div class="wind-streak s8"></div>
+  </div>
+
+  <!-- Viewport das 3 Telas -->
+  <main class="slider-viewport" id="sliderViewport">
+
+    <!-- ==================== TELA 1: LOGO SENAI (Fundo Branco com Ondas Vermelhas) ==================== -->
+    <section class="screen slide-screen active" id="screen1" data-index="0">
+      <div class="screen-content center-content">
+        <div class="hero-brand-card">
+          <div class="logo-wrapper">
+            <img src="assets/senai-logo.svg" alt="SENAI" class="senai-main-logo" id="logoSenaiHero">
+          </div>
+          
+          <div class="hero-divider"></div>
+          
+          <h1 class="hero-title stagger-words" data-base-delay="0.1">
+            O FUTURO DO TRABALHO COMEÇA AQUI
+          </h1>
+          
+          <p class="hero-subtitle stagger-words" data-base-delay="0.45">
+            Educação Profissional Inovação e Tecnologia para a Indústria Brasileira
+          </p>
+          
+          <div class="hero-badges">
+            <span class="badge stagger-words" data-base-delay="0.75">Formação Profissional</span>
+            <span class="badge stagger-words" data-base-delay="0.9">Tecnologia Industrial</span>
+            <span class="badge stagger-words" data-base-delay="1.05">Inovação e Futuro</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TELA 2: CONHEÇA NOSSOS CURSOS (1 QR CODE) ==================== -->
+    <section class="screen slide-screen" id="screen2" data-index="1">
+      <div class="screen-content center-content">
+        <div class="screen-header">
+          <div class="section-pill stagger-words" data-base-delay="0.05">
+            OPORTUNIDADES DE CARREIRA
+          </div>
+          <h2 class="section-title stagger-words" data-base-delay="0.2">
+            CONHEÇA NOSSOS CURSOS
+          </h2>
+          <p class="section-subtitle stagger-words" data-base-delay="0.5">
+            Aponte a câmera do seu celular para escanear e conferir todas as vagas abertas
+          </p>
+        </div>
+
+        <div class="single-qr-showcase">
+          <div class="qr-target-box">
+            <!-- Cantoneiras de Mira Estilo Totem Tecnológico -->
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+            
+            <!-- Feixe Laser Vermelho Animado -->
+            <div class="laser-scanner"></div>
+
+            <!-- Moldura do QR Code -->
+            <div class="qr-image-wrapper" id="qrContainerCursos">
+              <img id="qrImgCursos" class="qr-code-img" src="" alt="QR Code Conheça Nossos Cursos" style="display: none;">
+              <div id="qrDynamicCursos" class="qr-dynamic-box"></div>
+            </div>
+
+            <div class="qr-label-bottom">
+              Escaneie com a Câmera
+            </div>
+          </div>
+
+          <div class="qr-info-panel">
+            <div class="info-item">
+              <div class="info-text">
+                <h3 class="stagger-words" data-base-delay="0.55">Matrículas Rápidas</h3>
+                <p class="stagger-words" data-base-delay="0.7">Consulte turmas presenciais e semipresenciais abertas para este período.</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-text">
+                <h3 class="stagger-words" data-base-delay="0.8">Certificação SENAI</h3>
+                <p class="stagger-words" data-base-delay="0.95">O diploma profissional mais valorizado pelas indústrias e empresas do país.</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-text">
+                <h3 class="stagger-words" data-base-delay="1.05">Bolsas de Estudo</h3>
+                <p class="stagger-words" data-base-delay="1.2">Conheça os programas de gratuidade e editais com vagas 100% financiadas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TELA 3: 3 LINKEDINS COM TRANSIÇÃO ==================== -->
+    <section class="screen slide-screen" id="screen3" data-index="2">
+      <div class="screen-content">
+        <div class="screen-header text-center">
+          <div class="section-pill" id="screen3Pill">
+            CONECTE-SE CONOSCO
+          </div>
+          <h2 class="section-title screen3-main-title" id="screen3Title">
+            NOSSO LINKEDIN
+          </h2>
+          <p class="section-subtitle" id="screen3Subtitle">
+            Aponte a câmera do seu celular para os QR Codes e conecte-se com a nossa equipe
+          </p>
+        </div>
+
+        <div class="multi-qr-grid">
+          <!-- CARD 0: Thiago Masseto -->
+          <div class="qr-card">
+            <div class="qr-card-header">
+              <span class="qr-card-tag">LinkedIn</span>
+            </div>
+            <h3 class="qr-card-title stagger-words" data-base-delay="0.55">Thiago Masseto</h3>
+            <p class="qr-card-desc stagger-words" data-base-delay="0.7">Conecte-se para acompanhar projetos, inovações e qualificações.</p>
+            
+            <div class="qr-card-media">
+              <div class="qr-mini-scanner">
+                <img id="qrImgCard1" class="qr-code-img" src="assets/qr-thiago-masseto.png" alt="LinkedIn Thiago Masseto">
+              </div>
+            </div>
+            
+            <div class="qr-card-footer">
+              <span class="scan-cta">Conectar no LinkedIn</span>
+            </div>
+          </div>
+
+          <!-- CARD 1: Nicolas Bertacin -->
+          <div class="qr-card">
+            <div class="qr-card-header">
+              <span class="qr-card-tag">LinkedIn</span>
+            </div>
+            <h3 class="qr-card-title stagger-words" data-base-delay="0.65">Nicolas Bertacin</h3>
+            <p class="qr-card-desc stagger-words" data-base-delay="0.8">Conecte-se para acompanhar projetos, inovações e qualificações.</p>
+            
+            <div class="qr-card-media">
+              <div class="qr-mini-scanner">
+                <img id="qrImgCard2" class="qr-code-img" src="assets/qr-nicolas-bertacin.png" alt="LinkedIn Nicolas Bertacin">
+              </div>
+            </div>
+            
+            <div class="qr-card-footer">
+              <span class="scan-cta">Conectar no LinkedIn</span>
+            </div>
+          </div>
+
+          <!-- CARD 2: Nicolas Dalastra -->
+          <div class="qr-card">
+            <div class="qr-card-header">
+              <span class="qr-card-tag">LinkedIn</span>
+            </div>
+            <h3 class="qr-card-title stagger-words" data-base-delay="0.75">Nicolas Dalastra</h3>
+            <p class="qr-card-desc stagger-words" data-base-delay="0.9">Conecte-se para acompanhar projetos, inovações e qualificações.</p>
+            
+            <div class="qr-card-media">
+              <div class="qr-mini-scanner">
+                <img id="qrImgCard3" class="qr-code-img" src="assets/qr-nicolas-dalastra.png" alt="LinkedIn Nicolas Dalastra">
+              </div>
+            </div>
+            
+            <div class="qr-card-footer">
+              <span class="scan-cta">Conectar no LinkedIn</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Invisível de Configurações (Apenas via atalho 'S' no teclado, sem botões visíveis) -->
+  <div class="modal-backdrop" id="settingsModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Painel de Controle dos QR Codes</h3>
+        <button class="modal-close" id="btnCloseSettings">✕</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="config-section">
+          <h4>Tempo de Transição das Telas</h4>
+          <div class="interval-options">
+            <button class="time-btn" data-time="10000">10 Segundos</button>
+            <button class="time-btn active" data-time="20000">20 Segundos (Padrão)</button>
+            <button class="time-btn" data-time="30000">30 Segundos</button>
+          </div>
+        </div>
+
+        <div class="config-section">
+          <h4>Trocar QR Code da Tela 2 ("Conheça nossos cursos")</h4>
+          <p class="config-hint">Envie a imagem recebida do seu computador:</p>
+          <div class="file-upload-row">
+            <input type="file" id="fileQrCursos" accept="image/*" class="file-input">
+            <label for="fileQrCursos" class="file-label">Selecionar Imagem</label>
+            <span class="file-name" id="fileNameCursos">Nenhum arquivo selecionado</span>
+          </div>
+          <div class="url-input-row">
+            <input type="text" id="urlQrCursos" placeholder="Ou digite a URL (ex: https://sp.senai.br/cursos)" class="text-input">
+            <button id="btnApplyUrlCursos" class="small-btn">Gerar QR Code</button>
+          </div>
+        </div>
+
+        <div class="config-section">
+          <h4>Trocar os 3 QR Codes da Tela 3</h4>
+          <div class="triple-upload-grid">
+            <div class="upload-item">
+              <label>1. Cursos Técnicos</label>
+              <input type="file" id="fileQrCard1" accept="image/*" class="file-input">
+              <label for="fileQrCard1" class="mini-upload-btn">Escolher Imagem</label>
+              <input type="text" id="urlQrCard1" placeholder="Link personalizado" class="mini-text-input">
+            </div>
+            <div class="upload-item">
+              <label>2. Cursos Livres</label>
+              <input type="file" id="fileQrCard2" accept="image/*" class="file-input">
+              <label for="fileQrCard2" class="mini-upload-btn">Escolher Imagem</label>
+              <input type="text" id="urlQrCard2" placeholder="Link personalizado" class="mini-text-input">
+            </div>
+            <div class="upload-item">
+              <label>3. Faculdade SENAI</label>
+              <input type="file" id="fileQrCard3" accept="image/*" class="file-input">
+              <label for="fileQrCard3" class="mini-upload-btn">Escolher Imagem</label>
+              <input type="text" id="urlQrCard3" placeholder="Link personalizado" class="mini-text-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer-actions">
+          <button id="btnResetDefaults" class="secondary-btn">Restaurar Padrões</button>
+          <button id="btnSaveModal" class="primary-btn">Salvar Alterações</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
